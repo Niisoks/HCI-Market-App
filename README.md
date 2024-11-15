@@ -1,8 +1,7 @@
 # HCI-Market-App
-An app (prototype) that shows various information about local markets - for Human Computer Interaction
+An app (prototype) that shows various information about local markets - for Human Computer Interaction. The figma file showing the lo-mid-fi prototype can be seen [here](https://www.figma.com/design/OFZZPfB02wmnrvR7aobCpl/Norwich-Market-App?node-id=0-1&node-type=canvas&t=ruTjxbTN4RhfsAmT-0)
 
 ---------
-
 # Required tools
 The required tools you'll need to compile and edit this project are as follows:
 - A Windows(pc), Linux(pc) or Mac(pc-hackintosh/mac).
