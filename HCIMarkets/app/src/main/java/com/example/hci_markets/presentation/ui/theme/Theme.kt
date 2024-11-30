@@ -1,4 +1,4 @@
-package com.example.hci_markets.ui.theme
+package com.example.hci_markets.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

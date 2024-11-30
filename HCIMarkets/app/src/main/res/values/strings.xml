@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">HCI-Markets</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="lorem_terms">Effective Date: Lorem Ipsum Dolor Sit Amet\n\n
+
+        Introduction\n
+        By accessing this Lorem Ipsum Platform ("Platform"), you agree to be bound by these Dolor Amet Terms and Conditions ("Terms"). If you disagree with any part, please cease all usage of the Platform immediately. Proin vehicula nunc id sapien pellentesque.\n\n
+
+        Eligibility\n
+        Users must be at least eighteen (XVIII) years of age or the legal age of majority in their jurisdiction to use this Platform. Nullam suscipit nulla a vehicula varius. Vivamus pharetra ligula eget sem dictum condimentum.\n\n
+
+        User Conduct\n
+        3.1. Users shall not upload, post, or share content that is ultricies gravida turpis or violates applicable laws.\n
+        3.2. Unauthorized scraping, fermentum maximus augue, or duplication of content is strictly prohibited. Suspendisse potenti.\n\n
+
+        Intellectual Property\n
+        All Platform content, including but not limited to text, graphics, and icons, is the exclusive property of Auctor Mauris LLC unless otherwise stated. Fusce nec felis vitae tortor viverra tempor.\n\n
+
+        Limitation of Liability\n
+        Under no circumstances shall Vestibulum Industries or its affiliates be liable for damages arising out of your use or inability to use the Platform. Ut at dui nulla. Pellentesque habitant morbi tristique senectus et netus et malesuada.\n\n
+
+        Termination\n
+        We reserve the right to terminate your access to the Platform for any breach of these Terms, without notice. In non justo id sapien molestie ultricies.\n\n
+
+        Governing Law\n
+        These Terms are governed by the laws of Sem Fringilla Ipsum Jurisdiction and subject to exclusive venue in Cras Sit State Court. Nullam ac turpis fermentum, lacinia lorem ut, tempor ligula.\n\n
+
+        Miscellaneous\n
+        8.1. These Terms constitute the entire agreement between you and Elit Integer Inc. regarding the Platform. \n
+        8.2. In lacus lectus, dapibus vitae dictum id, commodo eu lorem. \n\n
+
+        By using the Platform, you confirm that you have read, understood, and agreed to these Terms. If you have any questions, please contact us at support@fakemail.ipsum
+    </string>
+    <string name="terms_title">Terms And Conditions</string>
+    <string name="terms_disclaimer">In order to use this application, you must first agree to the following terms and conditions.</string>
 </resources>
