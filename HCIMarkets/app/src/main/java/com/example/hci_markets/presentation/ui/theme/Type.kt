@@ -1,4 +1,4 @@
-package com.example.hci_markets.ui.theme
+package com.example.hci_markets.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
