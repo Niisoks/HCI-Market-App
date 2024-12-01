@@ -34,4 +34,14 @@
     </string>
     <string name="terms_title">Terms And Conditions</string>
     <string name="terms_disclaimer">In order to use this application, you must first agree to the following terms and conditions.</string>
+    <string name="x_of_y">%d of %d</string>
+    <string name="select_market">Select a Market</string>
+    <string name="select_market_description">Select a market so we know what information to show you.</string>
+    <string name="tasks_complete">Tasks\nComplete</string>
+    <string name="enable_location_perm">Enable Location Permissions</string>
+    <string name="enable_location_description">We use location data to determine the number of people at a given market.</string>
+    <string name="set_home">Set Home Location</string>
+    <string name="set_home_description">We use this to show markets close to you, and help with directions.</string>
+    <string name="all_tasks_complete">All Tasks Complete!</string>
+    <string name="all_tasks_complete_description">You\'re now ready to start using the app. Please press continue to move on to the standard app.\n\nIf you ever want to redo these tasks, they can be found in the settings menu in the top right of the screen.</string>
 </resources>

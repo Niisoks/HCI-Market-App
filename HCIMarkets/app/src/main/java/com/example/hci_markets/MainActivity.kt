@@ -27,8 +27,8 @@ class MainActivity : ComponentActivity() {
         val prefs = getSharedPreferences(PrefKeys.APP_PREFERENCES, MODE_PRIVATE)
         val termsAccepted = prefs.getBoolean(PrefKeys.TERMS_ACCEPTED, false)
 
-        if(termsAccepted){
-            Log.i("Main","Terms accepted already")
+        if (termsAccepted) {
+            Log.i("Main", "Terms accepted already")
         }
 
         setContent {
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
             HCIMarketsTheme {
                 NavHost(
                     navController = navController,
-                    startDestination = if(!termsAccepted)Screen.Terms.route else Screen.Tasks.route
+                    startDestination = if (!termsAccepted) Screen.Terms.route else Screen.Tasks.route
                 ) {
                     composable(route = Screen.Terms.route) {
                         TermsAndConditionsScreen(
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                                 prefs.edit()
                                     .putBoolean(PrefKeys.TERMS_ACCEPTED, true)
                                     .apply()
-                                navController.navigate(Screen.Tasks.route){
+                                navController.navigate(Screen.Tasks.route) {
                                     popUpTo(0) { inclusive = true }
                                     launchSingleTop = true
                                 }
@@ -63,9 +63,6 @@ class MainActivity : ComponentActivity() {
 
                     }
                 }
-            }
-
-
             }
         }
     }
