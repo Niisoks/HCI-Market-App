@@ -44,4 +44,12 @@
     <string name="set_home_description">We use this to show markets close to you, and help with directions.</string>
     <string name="all_tasks_complete">All Tasks Complete!</string>
     <string name="all_tasks_complete_description">You\'re now ready to start using the app. Please press continue to move on to the standard app.\n\nIf you ever want to redo these tasks, they can be found in the settings menu in the top right of the screen.</string>
+    <string name="quiet">Quiet</string>
+    <string name="not_busy">Not Busy</string>
+    <string name="busy">Busy</string>
+    <string name="very_busy">Very Busy</string>
+    <string name="read_more">Read More</string>
+    <string name="from_x">From %s</string>
+    <string name="recent_news">Recent News</string>
+    <string name="market_activity">Market Activity</string>
 </resources>

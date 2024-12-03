@@ -1,4 +1,4 @@
-package com.example.hci_markets.presentation.screen.TasksScreen
+package com.example.hci_markets.presentation.screen.tasks
 
 data class TasksUIState(
     val marketSelectionComplete: Boolean = false,

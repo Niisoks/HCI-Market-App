@@ -13,10 +13,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.hci_markets.domain.model.MarketItem
+import com.example.hci_markets.domain.model.NewsItem
 import com.example.hci_markets.presentation.nav.Screen
-import com.example.hci_markets.presentation.screen.TasksScreen.TasksScreen
-import com.example.hci_markets.presentation.screen.TasksScreen.TasksViewModel
+import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
+import com.example.hci_markets.presentation.screen.homeScreen.HomeScreen
+import com.example.hci_markets.presentation.screen.tasks.TasksScreen
+import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import com.example.hci_markets.util.PrefKeys
 import com.example.hci_markets.util.areLocationPermissionsGranted
@@ -117,8 +121,60 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                             onHomeClick = {},
-                            onContinueClick = {}
+                            onContinueClick = {
+                                navController.navigate(Screen.Home.route) {
+                                    popUpTo(0) { inclusive = true }
+                                    launchSingleTop = true
+                                }
+                            }
                         )
+                    }
+                    composable(route = Screen.Home.route) {
+                        val recentNews = listOf(
+                            NewsItem(
+                                title = "New pop-up shop now open",
+                                location = "Norwich Market",
+                                image = R.drawable.testnewsimage,
+                                description = "A new comic book pop-up has opened in Norwich Market. Paul Dunne founded it...",
+                                url = "https://example.com/news1"
+                            ),
+                            NewsItem(
+                                title = "New event this weekend",
+                                location = "City Park",
+                                image = R.drawable.testnewsimage,
+                                description = "Join us this weekend for a free community event in City Park...",
+                                url = "https://example.com/news2"
+                            )
+                        )
+
+                        val marketItems = listOf(
+                            MarketItem(
+                                name = "Norwich Market",
+                                busyness = 0.8f
+                            ),
+                            MarketItem(
+                                name = "Worstead Estate Farmers Market",
+                                busyness = 0.6f
+                            ),
+                            MarketItem(
+                                name = "Sheringham Market",
+                                busyness = 0.3f
+                            ),
+                            MarketItem(
+                                name = "Norwich Market",
+                                busyness = 0.8f
+                            ),
+                            MarketItem(
+                                name = "Worstead Estate Farmers Market",
+                                busyness = 0.2f
+                            ),
+                            MarketItem(
+                                name = "Sheringham Market",
+                                busyness = 0.1f
+                            )
+                        )
+
+                        HomeScreen(newsItems = recentNews, marketItems = marketItems)
                     }
                 }
             }
