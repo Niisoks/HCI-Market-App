@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.hci_markets"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.hci_markets"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -42,6 +42,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.maps)
+    implementation(libs.maps.compose)
+    implementation(libs.maps.compose.utils)
+    implementation(libs.maps.compose.widgets)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -59,6 +63,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
 }
+
 
 secrets {
     defaultPropertiesFileName = "secrets.defaults.properties"
