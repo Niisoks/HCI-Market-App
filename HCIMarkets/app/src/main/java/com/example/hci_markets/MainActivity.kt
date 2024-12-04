@@ -127,6 +127,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(route = Screen.Home.route) {
+
                         val recentNews = listOf(
                             NewsItem(
                                 title = "New pop-up shop now open",
@@ -143,6 +144,8 @@ class MainActivity : ComponentActivity() {
                                 url = "https://example.com/news2"
                             )
                         )
+
+                        val x = "$recentNews"
 
                         val marketItems = listOf(
                             MarketItem(

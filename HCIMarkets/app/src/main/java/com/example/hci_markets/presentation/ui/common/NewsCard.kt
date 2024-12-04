@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -50,19 +51,18 @@ fun NewsCard(
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
+
     val newMod = remember{
         if(inColumn){
             modifier
                 .fillMaxWidth()
-                .padding(8.dp)
         } else {
             modifier
                 .width((configuration.screenWidthDp).dp * 0.8f)
-                .padding(8.dp)
         }
     }
     Card(
-        modifier = newMod
+        modifier = newMod.padding(8.dp)
             ,
         elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(8.dp)
