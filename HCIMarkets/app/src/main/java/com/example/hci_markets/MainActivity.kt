@@ -29,6 +29,7 @@ import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import com.example.hci_markets.util.PrefKeys
 import com.example.hci_markets.util.areLocationPermissionsGranted
+import com.example.hci_markets.util.putDouble
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -145,20 +146,31 @@ class MainActivity : ComponentActivity() {
                         val appState = mainViewModel.appState.collectAsStateWithLifecycle()
                         SelectHomeScreen(
                             appState.value.location,
-                            appState.value.homeLocation
-                        ) {
-//                            mainViewModel.beginListeningToLocation(
-//                                this@MainActivity,
-//                                fusedLocationClient
-//                            )
-                            fusedLocationClient.lastLocation
-                                .addOnSuccessListener { location ->
-                                    location?.let {
-                                        mainViewModel.setHomeLocation(LatLng(it.latitude, it.longitude))
+                            appState.value.homeLocation ,
+                            selectCurrentLocation = {
+                                fusedLocationClient.lastLocation
+                                    .addOnSuccessListener { location ->
+                                        location?.let {
+                                            mainViewModel.setHomeLocation(
+                                                LatLng(
+                                                    it.latitude,
+                                                    it.longitude
+                                                )
+                                            )
+                                        }
                                     }
-                                }
-//                            mainViewModel.setHomeLocation(appState.value.location)
-                        }
+                            },
+                            selectLocation = {latlng ->
+                                mainViewModel.setHomeLocation(latlng)
+                            },
+                            onSave = {
+                                prefs.edit().putDouble(PrefKeys.HOME_LAT, appState.value.homeLocation.latitude)
+                                    .putDouble(PrefKeys.HOME_LNG, appState.value.homeLocation.longitude)
+                                    .apply()
+                                Toast.makeText(this@MainActivity, R.string.successfully_saved, Toast.LENGTH_SHORT).show()
+                                navController.popBackStack()
+                            }
+                        )
                     }
                     composable(route = Screen.Home.route) {
 

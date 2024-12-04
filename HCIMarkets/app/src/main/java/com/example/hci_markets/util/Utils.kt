@@ -2,6 +2,7 @@ package com.example.hci_markets.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.content.ContextCompat
@@ -22,3 +23,9 @@ fun areLocationPermissionsGranted(context: Context): Boolean {
 
     return fineLocationGranted || coarseLocationGranted
 }
+
+fun SharedPreferences.Editor.putDouble(key: String, double: Double) =
+    putLong(key, java.lang.Double.doubleToRawLongBits(double))
+
+fun SharedPreferences.getDouble(key: String, default: Double) =
+    java.lang.Double.longBitsToDouble(getLong(key, java.lang.Double.doubleToRawLongBits(default)))

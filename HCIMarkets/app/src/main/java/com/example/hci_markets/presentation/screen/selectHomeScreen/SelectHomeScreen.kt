@@ -38,7 +38,7 @@ import kotlinx.coroutines.delay
 fun SelectHomeScreen(
     currentLocation: LatLng,
     selectedLocation: LatLng,
-    selectLocation: () -> Unit = {},
+    selectLocation: (LatLng) -> Unit = {},
     selectCurrentLocation: () -> Unit = {},
     onSave: () -> Unit = {}
 ){
@@ -56,6 +56,9 @@ fun SelectHomeScreen(
             GoogleMap(
                 modifier = Modifier.fillMaxSize(),
                 cameraPositionState = cameraPositionState,
+                onMapClick = { latlng ->
+                    selectLocation(latlng)
+                }
             ) {
                 Marker(
                     state = markerState
@@ -67,12 +70,14 @@ fun SelectHomeScreen(
                 FloatingButton(
                     R.drawable.outline_my_location_24,
                     onClick = {
-                        selectLocation.invoke()
+                        selectCurrentLocation.invoke()
                     }
                 )
                 FloatingButton(
                     R.drawable.outline_save_24,
-                    onClick = {}
+                    onClick = {
+                        onSave.invoke()
+                    }
                 )
             }
             FloatingDialog(
