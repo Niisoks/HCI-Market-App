@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,16 +23,24 @@ import com.example.hci_markets.presentation.nav.Screen
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
 import com.example.hci_markets.presentation.screen.homeScreen.HomeScreen
+import com.example.hci_markets.presentation.screen.selectHomeScreen.SelectHomeScreen
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import com.example.hci_markets.util.PrefKeys
 import com.example.hci_markets.util.areLocationPermissionsGranted
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 
 class MainActivity : ComponentActivity() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var tasksViewModel: TasksViewModel
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val mainViewModel: MainViewModel by viewModels<MainViewModel>()
 
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,6 +60,8 @@ class MainActivity : ComponentActivity() {
                 ).show()
             }
         }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val prefs = getSharedPreferences(PrefKeys.APP_PREFERENCES, MODE_PRIVATE)
         val termsAccepted = prefs.getBoolean(PrefKeys.TERMS_ACCEPTED, false)
@@ -115,7 +128,9 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                             },
-                            onHomeClick = {},
+                            onHomeClick = {
+                                navController.navigate(Screen.SelectHome.route)
+                            },
                             onContinueClick = {
                                 navController.navigate(Screen.Home.route) {
                                     if(tasksComplete(this@MainActivity, prefs)) {
@@ -125,6 +140,25 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         )
+                    }
+                    composable(route = Screen.SelectHome.route){
+                        val appState = mainViewModel.appState.collectAsStateWithLifecycle()
+                        SelectHomeScreen(
+                            appState.value.location,
+                            appState.value.homeLocation
+                        ) {
+//                            mainViewModel.beginListeningToLocation(
+//                                this@MainActivity,
+//                                fusedLocationClient
+//                            )
+                            fusedLocationClient.lastLocation
+                                .addOnSuccessListener { location ->
+                                    location?.let {
+                                        mainViewModel.setHomeLocation(LatLng(it.latitude, it.longitude))
+                                    }
+                                }
+//                            mainViewModel.setHomeLocation(appState.value.location)
+                        }
                     }
                     composable(route = Screen.Home.route) {
 
@@ -144,8 +178,6 @@ class MainActivity : ComponentActivity() {
                                 url = "https://example.com/news2"
                             )
                         )
-
-                        val x = "$recentNews"
 
                         val marketItems = listOf(
                             MarketItem(
@@ -180,6 +212,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
 
 private fun tasksComplete(activity: MainActivity, prefs: SharedPreferences) : Boolean{
@@ -189,3 +222,4 @@ private fun tasksComplete(activity: MainActivity, prefs: SharedPreferences) : Bo
         prefs.getBoolean(PrefKeys.MARKET_SET, false)
     ).all { it }
 }
+
