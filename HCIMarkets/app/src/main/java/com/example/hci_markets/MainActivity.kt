@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.Manifest
+import android.content.SharedPreferences
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
@@ -56,20 +57,14 @@ class MainActivity : ComponentActivity() {
             Log.i("Main", "Terms accepted already")
         }
 
-        val tasksComplete = listOf(
-            areLocationPermissionsGranted(this@MainActivity),
-            prefs.getBoolean(PrefKeys.HOME_SET, false),
-            prefs.getBoolean(PrefKeys.MARKET_SET, false)
-        ).all { it }
-
         setContent {
             val navController = rememberNavController()
             HCIMarketsTheme {
                 NavHost(
                     navController = navController,
                     startDestination = if (!termsAccepted) Screen.Terms.route
-                    else if (!tasksComplete) Screen.Tasks.route
-                    else Screen.Tasks.route
+                    else if (!tasksComplete(this@MainActivity, prefs)) Screen.Tasks.route
+                    else Screen.Home.route
                 ) {
                     composable(route = Screen.Terms.route) {
                         TermsAndConditionsScreen(
@@ -123,8 +118,10 @@ class MainActivity : ComponentActivity() {
                             onHomeClick = {},
                             onContinueClick = {
                                 navController.navigate(Screen.Home.route) {
-                                    popUpTo(0) { inclusive = true }
-                                    launchSingleTop = true
+                                    if(tasksComplete(this@MainActivity, prefs)) {
+                                        popUpTo(0) { inclusive = true }
+                                        launchSingleTop = true
+                                    }
                                 }
                             }
                         )
@@ -140,7 +137,7 @@ class MainActivity : ComponentActivity() {
                             ),
                             NewsItem(
                                 title = "New event this weekend",
-                                location = "City Park",
+                                location = "Worstead Estate Farmers Market",
                                 image = R.drawable.testnewsimage,
                                 description = "Join us this weekend for a free community event in City Park...",
                                 url = "https://example.com/news2"
@@ -180,4 +177,12 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+private fun tasksComplete(activity: MainActivity, prefs: SharedPreferences) : Boolean{
+    return listOf(
+        areLocationPermissionsGranted(activity),
+        prefs.getBoolean(PrefKeys.HOME_SET, false),
+        prefs.getBoolean(PrefKeys.MARKET_SET, false)
+    ).all { it }
 }
