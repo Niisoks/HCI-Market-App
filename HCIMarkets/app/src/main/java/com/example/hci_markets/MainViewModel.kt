@@ -40,4 +40,20 @@ class MainViewModel : ViewModel() {
             )
         }
     }
+
+    fun closeDialog() {
+        _appState.update {
+            _appState.value.copy( dialogVisible =
+                false
+            )
+        }
+    }
+
+    fun openDialog() {
+        _appState.update {
+            _appState.value.copy( dialogVisible =
+                true
+            )
+        }
+    }
 }

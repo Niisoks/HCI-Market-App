@@ -143,10 +143,11 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(route = Screen.SelectHome.route){
+                        mainViewModel.openDialog() // The whole dialog thing shouldnt be in here
                         val appState = mainViewModel.appState.collectAsStateWithLifecycle()
                         SelectHomeScreen(
                             appState.value.location,
-                            appState.value.homeLocation ,
+                            appState.value.homeLocation,
                             selectCurrentLocation = {
                                 fusedLocationClient.lastLocation
                                     .addOnSuccessListener { location ->
@@ -160,16 +161,29 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                             },
-                            selectLocation = {latlng ->
+                            selectLocation = { latlng ->
                                 mainViewModel.setHomeLocation(latlng)
                             },
                             onSave = {
-                                prefs.edit().putDouble(PrefKeys.HOME_LAT, appState.value.homeLocation.latitude)
-                                    .putDouble(PrefKeys.HOME_LNG, appState.value.homeLocation.longitude)
+                                prefs.edit().putDouble(
+                                    PrefKeys.HOME_LAT,
+                                    appState.value.homeLocation.latitude
+                                )
+                                    .putDouble(
+                                        PrefKeys.HOME_LNG,
+                                        appState.value.homeLocation.longitude
+                                    )
+                                    .putBoolean(PrefKeys.HOME_SET, true)
                                     .apply()
-                                Toast.makeText(this@MainActivity, R.string.successfully_saved, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    R.string.successfully_saved,
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 navController.popBackStack()
-                            }
+                            },
+                            dialogOnClose = { mainViewModel.closeDialog() },
+                            dialogVisible = appState.value.dialogVisible
                         )
                     }
                     composable(route = Screen.Home.route) {

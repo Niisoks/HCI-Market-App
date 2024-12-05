@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,9 +20,12 @@ import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 @Composable
 fun FloatingDialog(
     text: String,
+    visible: Boolean = true,
     modifier: Modifier = Modifier,
+    dialogOnClose: () -> Unit,
 ){
-    ElevatedCard(modifier = modifier, elevation = CardDefaults.elevatedCardElevation(4.dp)) {
+    if(!visible) return
+    ElevatedCard(modifier = modifier, elevation = CardDefaults.elevatedCardElevation(4.dp), onClick = dialogOnClose) {
         Box(Modifier.fillMaxWidth()){
             Icon(
                 modifier = Modifier.align(Alignment.TopEnd).size(48.dp).padding(12.dp),
@@ -42,6 +44,9 @@ fun FloatingDialog(
 @Composable
 private fun Preview(){
     HCIMarketsTheme {
-        FloatingDialog("Please tap on the location of your home so we can provide directions in the future")
+        FloatingDialog(
+            "Please tap on the location of your home so we can provide directions in the future",
+            dialogOnClose = {}
+        )
     }
 }
