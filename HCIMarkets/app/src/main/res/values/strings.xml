@@ -54,4 +54,5 @@
     <string name="market_activity">Market Activity</string>
     <string name="set_home_dialog">Please tap on the location of your home - or the current location button - and press save so we can provide directions in the future.</string>
     <string name="successfully_saved">Successfully saved</string>
+    <string name="enter_a_market_name">Enter a market name...</string>
 </resources>
