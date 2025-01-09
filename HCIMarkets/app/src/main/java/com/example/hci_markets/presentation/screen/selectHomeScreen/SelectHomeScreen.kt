@@ -42,7 +42,7 @@ fun SelectHomeScreen(
             LaunchedEffect(selectedLocation) {
                 markerState.position = selectedLocation
                 cameraPositionState.position =
-                    CameraPosition.fromLatLngZoom(selectedLocation, 80f)
+                    CameraPosition.fromLatLngZoom(selectedLocation, 15f)
             }
             GoogleMap(
                 modifier = Modifier.fillMaxSize(),

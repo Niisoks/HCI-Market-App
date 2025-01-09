@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -29,6 +30,7 @@ import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import com.example.hci_markets.util.PrefKeys
 import com.example.hci_markets.util.areLocationPermissionsGranted
+import com.example.hci_markets.util.getDouble
 import com.example.hci_markets.util.putDouble
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -71,6 +73,15 @@ class MainActivity : ComponentActivity() {
             Log.i("Main", "Terms accepted already")
         }
 
+        if(prefs.contains(PrefKeys.HOME_LAT) && prefs.contains(PrefKeys.HOME_LNG) && prefs.getBoolean(PrefKeys.HOME_SET , false)) {
+            mainViewModel.setHomeLocation(
+                LatLng(
+                    prefs.getDouble(PrefKeys.HOME_LAT, 0.0),
+                    prefs.getDouble(PrefKeys.HOME_LNG, 0.0)
+                )
+            )
+        }
+
         setContent {
             val navController = rememberNavController()
             HCIMarketsTheme {
@@ -106,7 +117,7 @@ class MainActivity : ComponentActivity() {
                         tasksViewModel.stateOverride(
                             marketSelectionComplete = false,
                             locationPermissionsComplete = areLocationPermissionsGranted(this@MainActivity),
-                            homeLocationComplete = false,
+                            homeLocationComplete = prefs.getBoolean(PrefKeys.HOME_SET, false),
                             totalTasks = 3
                         )
 
@@ -143,7 +154,9 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(route = Screen.SelectHome.route){
-                        mainViewModel.openDialog() // The whole dialog thing shouldnt be in here
+                        LaunchedEffect(Unit){
+                            mainViewModel.openDialog() // The whole dialog thing shouldnt be in here
+                        }
                         val appState = mainViewModel.appState.collectAsStateWithLifecycle()
                         SelectHomeScreen(
                             appState.value.location,
