@@ -21,7 +21,7 @@ fun FloatingButton(
     text: String? = null
 ) {
     ElevatedButton(
-        onClick = {},
+        onClick = onClick,
         modifier = modifier
             .padding(16.dp)
             .defaultMinSize(minWidth = 64.dp, minHeight = 48.dp),
@@ -39,8 +39,8 @@ fun FloatingButton(
             contentDescription = null,
             modifier = Modifier.size(18.dp)
         )
-        Spacer(modifier = Modifier.width(8.dp))
         text?.let {
+            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = it,
                 fontSize = 16.sp,

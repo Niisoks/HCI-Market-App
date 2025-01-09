@@ -44,4 +44,19 @@
     <string name="set_home_description">We use this to show markets close to you, and help with directions.</string>
     <string name="all_tasks_complete">All Tasks Complete!</string>
     <string name="all_tasks_complete_description">You\'re now ready to start using the app. Please press continue to move on to the standard app.\n\nIf you ever want to redo these tasks, they can be found in the settings menu in the top right of the screen.</string>
+    <string name="quiet">Quiet</string>
+    <string name="not_busy">Not Busy</string>
+    <string name="busy">Busy</string>
+    <string name="very_busy">Very Busy</string>
+    <string name="read_more">Read More</string>
+    <string name="from_x">From %s</string>
+    <string name="recent_news">Recent News</string>
+    <string name="market_activity">Market Activity</string>
+    <string name="set_home_dialog">Please tap on the location of your home - or the current location button - and press save so we can provide directions in the future.</string>
+    <string name="successfully_saved">Successfully saved</string>
+    <string name="enter_a_market_name">Enter a market name...</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
+    <string name="please_select_market">Please select the markets closest to you and press save to save your changes.</string>
+    <string name="set_market_dialog">Please tap on the location of the markets near you. Green shows selected locations, and red locations are not currently selected.</string>
 </resources>
