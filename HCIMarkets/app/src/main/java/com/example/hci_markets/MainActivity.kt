@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
                     composable(route = Screen.Tasks.route) {
                         tasksViewModel = viewModel()
                         tasksViewModel.stateOverride(
-                            marketSelectionComplete = false,
+                            marketSelectionComplete = prefs.getBoolean(PrefKeys.MARKET_SET, false),
                             locationPermissionsComplete = areLocationPermissionsGranted(this@MainActivity),
                             homeLocationComplete = prefs.getBoolean(PrefKeys.HOME_SET, false),
                             totalTasks = 3
@@ -208,17 +208,28 @@ class MainActivity : ComponentActivity() {
                         val viewModel : SelectMarketsViewModel = viewModel()
                         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
                         LaunchedEffect(Unit) { viewModel.populateMarkets(
-                            false,
-                            false,
-                            false
+                            prefs.getBoolean(PrefKeys.NORWICH_SELECTED, false),
+                            prefs.getBoolean(PrefKeys.SHERINGHAM_SELECTED, false),
+                            prefs.getBoolean(PrefKeys.WORSTEAD_SELECTED, false),
                         ) }
                         SelectMarketScreen(
                             markets = uiState.value.markets,
                             selectedMarkets = uiState.value.selectedMarkets,
+                            visibleMarkets = uiState.value.visibleMarkets,
                             onMarketClick = {viewModel.selectMarket(it)},
-                            searchText = "",
-                            onSearchTextChanged = {},
-                            onSave = {}
+                            searchText = uiState.value.text,
+                            onSearchTextChanged = {viewModel.updateSearchText(it)},
+                            onSave = {
+                                viewModel.save(prefs)
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    R.string.successfully_saved,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                prefs.edit().putBoolean(PrefKeys.MARKET_SET, true)
+                                    .apply()
+                                navController.popBackStack()
+                            }
                         )
                     }
 

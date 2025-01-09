@@ -1,7 +1,9 @@
 package com.example.hci_markets.presentation.screen.selectMarketScreen
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.example.hci_markets.domain.model.MarketItem
+import com.example.hci_markets.util.PrefKeys
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,6 +48,26 @@ class SelectMarketsViewModel : ViewModel() {
                     if (worsteadSelected) markets[2].uid else null
                 )
 
+            )
+        }
+    }
+
+    fun save(prefs: SharedPreferences){
+        val selectedMarkets = _uiState.value.selectedMarkets
+        val markets = _uiState.value.markets
+        prefs.edit()
+            .putBoolean(PrefKeys.NORWICH_SELECTED, selectedMarkets.contains(markets[0].uid))
+            .putBoolean(PrefKeys.SHERINGHAM_SELECTED, selectedMarkets.contains(markets[1].uid))
+            .putBoolean(PrefKeys.WORSTEAD_SELECTED, selectedMarkets.contains(markets[2].uid))
+            .apply()
+    }
+
+    fun updateSearchText(string: String){
+        val visible = if(string.isBlank()) _uiState.value.markets.map { it.uid } else _uiState.value.markets.filter { it.name.contains(string) }.map { it.uid }
+        _uiState.update {
+            _uiState.value.copy(
+                text = string,
+                visibleMarkets = visible
             )
         }
     }

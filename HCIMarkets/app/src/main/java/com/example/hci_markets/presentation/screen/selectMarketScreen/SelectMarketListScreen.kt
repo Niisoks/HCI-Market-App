@@ -17,13 +17,13 @@ import java.util.UUID
 
 @Composable
 fun SelectMarketsListScreen(
-    markets : List<MarketItem>,
-    selectedMarkets : List<UUID> = listOf(),
-    onMarketClick : (UUID) -> Unit = {},
+    markets: List<MarketItem>,
+    selectedMarkets: List<UUID> = listOf(),
+    onMarketClick: (UUID) -> Unit = {},
     searchText: String = "",
     onSearchTextChanged: (String) -> Unit = {},
+    visibleMarkets: List<UUID> = listOf(),
 ){
-    val x = remember{ mutableStateOf("") }
     Column {
         Text(
             stringResource(R.string.please_select_market),
@@ -34,7 +34,7 @@ fun SelectMarketsListScreen(
             onTextChange = onSearchTextChanged
         ) {
             CheckableLazyList(
-                markets,
+                markets.filter { if(visibleMarkets.isNotEmpty()) visibleMarkets.contains(it.uid) else true },
                 selectedMarkets,
                 onMarketClick
             )
@@ -65,7 +65,7 @@ private fun Preview(){
                     busyness = 0.3f
                 ),
             ),
-            listOf(x, y)
+            listOf(x, y),
         )
     }
 }

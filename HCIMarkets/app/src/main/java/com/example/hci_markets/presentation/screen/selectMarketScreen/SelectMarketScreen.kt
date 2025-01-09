@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +22,7 @@ import java.util.UUID
 fun SelectMarketScreen(
     markets: List<MarketItem> = listOf(),
     selectedMarkets: List<UUID> = listOf(),
+    visibleMarkets: List<UUID> = listOf(),
     onMarketClick: (UUID) -> Unit = {},
     searchText: String = "",
     onSearchTextChanged: (String) -> Unit = {},
@@ -36,6 +36,7 @@ fun SelectMarketScreen(
                 tabOneContent = {
                     SelectMarketsListScreen(
                         markets = markets,
+                        visibleMarkets = visibleMarkets,
                         selectedMarkets = selectedMarkets,
                         onMarketClick = onMarketClick,
                         searchText = searchText,
