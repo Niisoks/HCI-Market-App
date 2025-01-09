@@ -8,10 +8,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hci_markets.domain.model.MarketItem
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
+import java.util.UUID
 
 @Composable
 fun CheckableLazyList(
-    markets : List<MarketItem>,
+    markets: List<MarketItem>,
+    selectedMarkets: List<UUID> = listOf(),
+    onMarketClick: (UUID) -> Unit = {},
 ){
     LazyColumn {
         items(
@@ -20,12 +23,12 @@ fun CheckableLazyList(
         ){
             val market = markets[it]
             HorizontalDivider()
-            val selected = remember{ mutableStateOf(false) }
+            val selected = remember(selectedMarkets.size){ selectedMarkets.contains(market.uid) }
             CheckableItem(
                 title = market.name,
-                selected = selected.value,
+                selected = selected,
                 onClick = {bool ->
-                    selected.value = bool
+                    onMarketClick(market.uid)
                 }
             )
         }
@@ -50,7 +53,7 @@ private fun Preview(){
                     name = "Sheringham Market",
                     busyness = 0.3f
                 ),
-            )
+            ),
         )
     }
 }

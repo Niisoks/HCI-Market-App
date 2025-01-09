@@ -55,4 +55,8 @@
     <string name="set_home_dialog">Please tap on the location of your home - or the current location button - and press save so we can provide directions in the future.</string>
     <string name="successfully_saved">Successfully saved</string>
     <string name="enter_a_market_name">Enter a market name...</string>
+    <string name="list">List</string>
+    <string name="map">Map</string>
+    <string name="please_select_market">Please select the markets closest to you and press save to save your changes.</string>
+    <string name="set_market_dialog">Please tap on the location of the markets near you. Green shows selected locations, and red locations are not currently selected.</string>
 </resources>

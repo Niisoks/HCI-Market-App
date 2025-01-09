@@ -82,7 +82,8 @@ private fun Preview(){
                     MarketItem(
                         name = "test thing",
                         busyness = 0.8f
-                    ))
+                    )),
+                onMarketClick = {}
             )
         }
     }

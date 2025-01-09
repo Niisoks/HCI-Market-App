@@ -25,6 +25,8 @@ import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
 import com.example.hci_markets.presentation.screen.homeScreen.HomeScreen
 import com.example.hci_markets.presentation.screen.selectHomeScreen.SelectHomeScreen
+import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketScreen
+import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketsViewModel
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
@@ -129,7 +131,9 @@ class MainActivity : ComponentActivity() {
                             homeLocationComplete = tasksState.value.homeLocationComplete,
                             tasksComplete = tasksState.value.tasksComplete,
                             totalTasks = tasksState.value.totalTasks,
-                            onMarketClick = {},
+                            onMarketClick = {
+                                navController.navigate(Screen.SelectMarket.route)
+                            },
                             onLocationClick = {
                                 if(!areLocationPermissionsGranted(this@MainActivity)) {
                                     requestPermissionLauncher.launch(
@@ -199,6 +203,25 @@ class MainActivity : ComponentActivity() {
                             dialogVisible = appState.value.dialogVisible
                         )
                     }
+
+                    composable(route = Screen.SelectMarket.route){
+                        val viewModel : SelectMarketsViewModel = viewModel()
+                        val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+                        LaunchedEffect(Unit) { viewModel.populateMarkets(
+                            false,
+                            false,
+                            false
+                        ) }
+                        SelectMarketScreen(
+                            markets = uiState.value.markets,
+                            selectedMarkets = uiState.value.selectedMarkets,
+                            onMarketClick = {viewModel.selectMarket(it)},
+                            searchText = "",
+                            onSearchTextChanged = {},
+                            onSave = {}
+                        )
+                    }
+
                     composable(route = Screen.Home.route) {
 
                         val recentNews = listOf(
