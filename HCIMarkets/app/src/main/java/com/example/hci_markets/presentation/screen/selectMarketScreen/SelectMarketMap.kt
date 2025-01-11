@@ -70,7 +70,7 @@ fun SelectMarketMap(
                 stringResource(R.string.set_market_dialog),
                 dialogVisible.value,
                 Modifier.padding(12.dp),
-                {dialogVisible.value = false}
+                dialogOnClose = {dialogVisible.value = false}
             )
         }
     }

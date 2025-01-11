@@ -75,7 +75,7 @@ fun SelectHomeScreen(
                 stringResource(R.string.set_home_dialog),
                 dialogVisible,
                 Modifier.padding(12.dp),
-                dialogOnClose
+                dialogOnClose = dialogOnClose
             )
         }
     }

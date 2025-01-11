@@ -11,21 +11,26 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.hci_markets.domain.model.MarketItem
 import com.example.hci_markets.domain.model.NewsItem
+import com.example.hci_markets.domain.model.createMarketItems
 import com.example.hci_markets.domain.model.createNewsItems
 import com.example.hci_markets.presentation.nav.Screen
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
 import com.example.hci_markets.presentation.screen.homeScreen.HomeScreen
+import com.example.hci_markets.presentation.screen.mapScreen.MapScreen
+import com.example.hci_markets.presentation.screen.newsScreen.NewsScreen
 import com.example.hci_markets.presentation.screen.selectHomeScreen.SelectHomeScreen
 import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketScreen
 import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketsViewModel
@@ -240,45 +245,36 @@ class MainActivity : ComponentActivity() {
                     composable(route = Screen.Home.route) {
                         val recentNews = createNewsItems()
 
-                        val marketItems = listOf(
-                            MarketItem(
-                                name = "Norwich Market",
-                                busyness = 0.8f
-                            ),
-                            MarketItem(
-                                name = "Worstead Estate Farmers Market",
-                                busyness = 0.6f
-                            ),
-                            MarketItem(
-                                name = "Sheringham Market",
-                                busyness = 0.3f
-                            ),
-                            MarketItem(
-                                name = "Norwich Market",
-                                busyness = 0.8f
-                            ),
-                            MarketItem(
-                                name = "Worstead Estate Farmers Market",
-                                busyness = 0.2f
-                            ),
-                            MarketItem(
-                                name = "Sheringham Market",
-                                busyness = 0.1f
-                            )
-                        )
+                        val marketItems = createMarketItems()
 
-                        NavBar(
-                            stringResource(R.string.home),
-                            currentLocation = NavigationLocations.HOME,
-                            showBack = false,
-                            onBackPress = {navController.popBackStack()},
-                            navHome = {navController.navigate(Screen.Home.route)},
-                            navMap = {navController.navigate(Screen.Home.route)},
-                            navMarkets = {navController.navigate(Screen.Home.route)},
-                            navNews = {navController.navigate(Screen.Home.route)},
-                            navSettings = {navController.navigate(Screen.Home.route)},
+                        MasterNavBar(
+                            navController = navController,
+                            showBack = false
                         ){
                             HomeScreen(newsItems = recentNews, marketItems = marketItems)
+                        }
+                    }
+
+                    composable(route = Screen.News.route) {
+                        MasterNavBar(
+                            currentLocation = NavigationLocations.NEWS,
+                            navController = navController,
+                            showBack = false
+                        ) {
+                            NewsScreen(
+                                createNewsItems(),
+                                createMarketItems()
+                            )
+                        }
+                    }
+
+                    composable(route = Screen.Map.route){
+                        MasterNavBar(
+                            currentLocation = NavigationLocations.MAP,
+                            navController = navController,
+                            showBack = true
+                        ){
+                            MapScreen()
                         }
                     }
                 }
@@ -296,3 +292,24 @@ private fun tasksComplete(activity: MainActivity, prefs: SharedPreferences) : Bo
     ).all { it }
 }
 
+@Composable
+fun MasterNavBar(
+    currentLocation: NavigationLocations = NavigationLocations.HOME,
+    navController: NavController,
+    showBack: Boolean,
+    content: @Composable () -> Unit = {}
+){
+    NavBar(
+        stringResource(currentLocation.nameRes),
+        currentLocation = currentLocation,
+        showBack = showBack,
+        onBackPress = {navController.popBackStack()},
+        navHome = {navController.navigate(Screen.Home.route)},
+        navMap = {navController.navigate(Screen.Map.route)},
+        navMarkets = {navController.navigate(Screen.Home.route)},
+        navNews = {navController.navigate(Screen.News.route)},
+        navSettings = {navController.navigate(Screen.Home.route)},
+    ){
+        content.invoke()
+    }
+}

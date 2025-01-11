@@ -1,9 +1,11 @@
 package com.example.hci_markets.presentation.ui.common
 
-enum class NavigationLocations {
-    HOME,
-    MAP,
-    MARKETS,
-    NEWS,
-    SETTINGS
+import com.example.hci_markets.R
+
+enum class NavigationLocations(val nameRes: Int) {
+    HOME(R.string.home),
+    MAP(R.string.map),
+    MARKETS(R.string.markets),
+    NEWS(R.string.news),
+    SETTINGS(R.string.settings)
 }
