@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hci_markets.R
 import com.example.hci_markets.domain.model.MarketItem
+import com.example.hci_markets.domain.model.createMarketItems
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 
 @Composable
@@ -67,22 +68,7 @@ private fun Preview(){
             x.value = string
         }){
             CheckableLazyList(
-                markets = listOf(MarketItem(
-                    name = "test thing",
-                    busyness = 0.8f
-                ),
-                    MarketItem(
-                        name = "test thing",
-                        busyness = 0.8f
-                    ),
-                    MarketItem(
-                        name = "test thing",
-                        busyness = 0.8f
-                    ),
-                    MarketItem(
-                        name = "test thing",
-                        busyness = 0.8f
-                    )),
+                markets = createMarketItems(),
                 onMarketClick = {}
             )
         }

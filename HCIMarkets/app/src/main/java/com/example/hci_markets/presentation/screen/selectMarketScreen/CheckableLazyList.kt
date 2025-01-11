@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hci_markets.domain.model.MarketItem
+import com.example.hci_markets.domain.model.createMarketItems
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import java.util.UUID
 
@@ -40,20 +41,7 @@ fun CheckableLazyList(
 private fun Preview(){
     HCIMarketsTheme {
         CheckableLazyList(
-            listOf(
-                MarketItem(
-                    name = "Norwich Market",
-                    busyness = 0.8f
-                ),
-                MarketItem(
-                    name = "Worstead Estate Farmers Market",
-                    busyness = 0.6f
-                ),
-                MarketItem(
-                    name = "Sheringham Market",
-                    busyness = 0.3f
-                ),
-            ),
+            createMarketItems()
         )
     }
 }

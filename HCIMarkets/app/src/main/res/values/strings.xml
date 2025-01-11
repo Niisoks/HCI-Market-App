@@ -65,4 +65,7 @@
     <string name="settings">Settings</string>
     <string name="directions_to_market">Directions to Norwich Market</string>
     <string name="open_in_maps">Open in maps</string>
+    <string name="directions">Directions</string>
+    <string name="shops">Shops</string>
+    <string name="shanghai">Taste of Shanghai</string>
 </resources>

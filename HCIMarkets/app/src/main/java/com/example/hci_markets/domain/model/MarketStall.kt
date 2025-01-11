@@ -2,6 +2,7 @@ package com.example.hci_markets.domain.model
 
 import android.media.Image
 import androidx.annotation.DrawableRes
+import com.example.hci_markets.presentation.screen.marketsScreen.PeakTimes
 import com.google.android.gms.maps.model.LatLng
 import java.util.UUID
 
@@ -21,7 +22,7 @@ data class MarketStall(
     val rowLetter: String = "A",
     val openingToClosingTime: String = "12pm - 5pm",
     val openDays: String = "Mon - Sat",
-    val busiest: BusiestAt = BusiestAt.LUNCH,
+    val busiest: PeakTimes = PeakTimes.TWELVE,
     val phone: String = "+44 789789789",
     val email: String = "testoffakeemail@norwichmarket.uk",
     val menu: List<RestaurantMenu> = listOf()

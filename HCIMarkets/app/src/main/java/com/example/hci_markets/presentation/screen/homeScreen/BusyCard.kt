@@ -46,7 +46,7 @@ fun BusyCard(
 }
 
 @DrawableRes
-private fun busynessToGraph(busyness: Float): Int {
+fun busynessToGraph(busyness: Float): Int {
     return when {
         busyness <= 0.25f -> R.drawable.quiet
         busyness <= 0.5f -> R.drawable.notbusy
@@ -56,7 +56,7 @@ private fun busynessToGraph(busyness: Float): Int {
 }
 
 @StringRes
-private fun busynessToString(@DrawableRes res: Int) : Int{
+fun busynessToString(@DrawableRes res: Int) : Int{
     return when(res) {
          R.drawable.quiet -> R.string.quiet
         R.drawable.notbusy -> R.string.not_busy

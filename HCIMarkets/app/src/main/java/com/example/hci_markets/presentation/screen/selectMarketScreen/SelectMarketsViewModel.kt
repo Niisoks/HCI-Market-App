@@ -3,6 +3,7 @@ package com.example.hci_markets.presentation.screen.selectMarketScreen
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.example.hci_markets.domain.model.MarketItem
+import com.example.hci_markets.presentation.screen.marketsScreen.PeakTimes
 import com.example.hci_markets.util.PrefKeys
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,19 +25,32 @@ class SelectMarketsViewModel : ViewModel() {
         val markets = listOf(
             MarketItem(
                 name = "Norwich Market",
-                latLng = LatLng(52.6286, 1.2929),
-                busyness = 0.8f
+                busyness = 0.8f,
+                location = "Norwich",
+                openingTimes = "9am - 4pm",
+                openingDays = "Mon - Sun",
+                peak = PeakTimes.TWELVE,
+                latLng = LatLng(52.630886, 1.297355)
             ),
             MarketItem(
                 name = "Sheringham Market",
-                latLng = LatLng(52.9412, 1.2093),
-                busyness = 0.8f
+                busyness = 0.5f,
+                location = "Sheringham",
+                openingTimes = "11am - 4pm",
+                openingDays = "Wed - Sun",
+                peak = PeakTimes.THREE,
+                latLng = LatLng(52.9412, 1.2093)
             ),
             MarketItem(
                 name = "Worstead Estate Farmers Market",
-                latLng = LatLng(52.7630, 1.4553),
-                busyness = 0.8f
+                busyness = 0.2f,
+                location = "Worstead",
+                openingTimes = "8am - 1pm",
+                openingDays = "Sat - Sun",
+                peak = PeakTimes.NINE,
+                latLng = LatLng(52.7630, 1.4553)
             ),
+
         )
         _uiState.update {
             _uiState.value.copy(

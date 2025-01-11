@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hci_markets.R
 import com.example.hci_markets.domain.model.MarketItem
+import com.example.hci_markets.domain.model.createMarketItems
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import java.util.UUID
 
@@ -49,22 +50,7 @@ private fun Preview(){
     val y = UUID.randomUUID()
     HCIMarketsTheme {
         SelectMarketsListScreen(
-            listOf(
-                MarketItem(
-                    uid = x,
-                    name = "Norwich Market",
-                    busyness = 0.8f
-                ),
-                MarketItem(
-                    name = "Worstead Estate Farmers Market",
-                    busyness = 0.6f
-                ),
-                MarketItem(
-                    uid = y,
-                    name = "Sheringham Market",
-                    busyness = 0.3f
-                ),
-            ),
+            createMarketItems(),
             listOf(x, y),
         )
     }

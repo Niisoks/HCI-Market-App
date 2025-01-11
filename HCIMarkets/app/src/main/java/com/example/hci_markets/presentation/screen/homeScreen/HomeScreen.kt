@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.example.hci_markets.R
 import com.example.hci_markets.domain.model.MarketItem
 import com.example.hci_markets.domain.model.NewsItem
+import com.example.hci_markets.domain.model.createMarketItems
 import com.example.hci_markets.presentation.ui.common.NewsCard
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 
@@ -133,21 +134,7 @@ private fun Preview(){
         )
     )
 
-    val marketItems = listOf(
-        MarketItem(
-            name = "Norwich Market",
-            busyness = 0.8f
-        ),
-        MarketItem(
-            name = "Worstead Estate Farmers Market",
-            busyness = 0.6f
-        ),
-        MarketItem(
-            name = "Sheringham Market",
-            busyness = 0.3f
-        ),
-
-    )
+    val marketItems = createMarketItems()
 
     HCIMarketsTheme {
         HomeScreen(

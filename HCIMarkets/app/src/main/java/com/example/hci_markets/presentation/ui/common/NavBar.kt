@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +51,7 @@ fun NavBar(
     navMarkets: () -> Unit = {},
     navNews: () -> Unit = {},
     navSettings: () -> Unit = {},
+    showSettings:Boolean = true,
     content: @Composable () -> Unit = {}
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -149,6 +151,18 @@ fun NavBar(
                             )
                         }
                     },
+                    actions = {
+                        if(showSettings) {
+                            IconButton(onClick = {
+                                navSettings.invoke()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = "Settings"
+                                )
+                            }
+                        }
+                    }
                 )
             },
         ) { innerPadding ->

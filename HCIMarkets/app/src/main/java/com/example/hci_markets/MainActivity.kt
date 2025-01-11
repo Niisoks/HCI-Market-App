@@ -30,10 +30,12 @@ import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
 import com.example.hci_markets.presentation.screen.homeScreen.HomeScreen
 import com.example.hci_markets.presentation.screen.mapScreen.MapScreen
+import com.example.hci_markets.presentation.screen.marketsScreen.MarketsScreen
 import com.example.hci_markets.presentation.screen.newsScreen.NewsScreen
 import com.example.hci_markets.presentation.screen.selectHomeScreen.SelectHomeScreen
 import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketScreen
 import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketsViewModel
+import com.example.hci_markets.presentation.screen.settingsScreen.SettingsScreen
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
 import com.example.hci_markets.presentation.ui.common.NavBar
@@ -92,6 +94,7 @@ class MainActivity : ComponentActivity() {
                 )
             )
         }
+        mainViewModel.load(prefs = prefs)
 
         setContent {
             val navController = rememberNavController()
@@ -244,8 +247,9 @@ class MainActivity : ComponentActivity() {
 
                     composable(route = Screen.Home.route) {
                         val recentNews = createNewsItems()
+                        mainViewModel.load(prefs)
 
-                        val marketItems = createMarketItems()
+                        val marketItems = mainViewModel.markets
 
                         MasterNavBar(
                             navController = navController,
@@ -277,6 +281,32 @@ class MainActivity : ComponentActivity() {
                             MapScreen()
                         }
                     }
+
+                    composable(route = Screen.Markets.route){
+                        MasterNavBar(
+                            currentLocation = NavigationLocations.MARKETS,
+                            navController = navController,
+                            showBack = false
+                        ){
+                            MarketsScreen(
+                                mainViewModel.markets,
+                                { marketItem ->
+
+                                }
+                            )
+                        }
+                    }
+
+                    composable(route = Screen.Settings.route){
+                        MasterNavBar(
+                            currentLocation = NavigationLocations.SETTINGS,
+                            navController = navController,
+                            showBack = true,
+                            showSettings = false
+                        ){
+                            SettingsScreen(navController)
+                        }
+                    }
                 }
             }
         }
@@ -297,6 +327,7 @@ fun MasterNavBar(
     currentLocation: NavigationLocations = NavigationLocations.HOME,
     navController: NavController,
     showBack: Boolean,
+    showSettings: Boolean = true,
     content: @Composable () -> Unit = {}
 ){
     NavBar(
@@ -306,9 +337,10 @@ fun MasterNavBar(
         onBackPress = {navController.popBackStack()},
         navHome = {navController.navigate(Screen.Home.route)},
         navMap = {navController.navigate(Screen.Map.route)},
-        navMarkets = {navController.navigate(Screen.Home.route)},
+        navMarkets = {navController.navigate(Screen.Markets.route)},
         navNews = {navController.navigate(Screen.News.route)},
-        navSettings = {navController.navigate(Screen.Home.route)},
+        navSettings = {navController.navigate(Screen.Settings.route)},
+        showSettings = showSettings
     ){
         content.invoke()
     }
