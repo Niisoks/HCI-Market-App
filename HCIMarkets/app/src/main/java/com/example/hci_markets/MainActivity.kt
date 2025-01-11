@@ -21,6 +21,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.hci_markets.domain.model.MarketItem
 import com.example.hci_markets.domain.model.NewsItem
+import com.example.hci_markets.domain.model.createNewsItems
 import com.example.hci_markets.presentation.nav.Screen
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
@@ -237,22 +238,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(route = Screen.Home.route) {
-                        val recentNews = listOf(
-                            NewsItem(
-                                title = "New pop-up shop now open",
-                                location = "Norwich Market",
-                                image = R.drawable.testnewsimage,
-                                description = "A new comic book pop-up has opened in Norwich Market. Paul Dunne founded it...",
-                                url = "https://example.com/news1"
-                            ),
-                            NewsItem(
-                                title = "New event this weekend",
-                                location = "Worstead Estate Farmers Market",
-                                image = R.drawable.testnewsimage,
-                                description = "Join us this weekend for a free community event in City Park...",
-                                url = "https://example.com/news2"
-                            )
-                        )
+                        val recentNews = createNewsItems()
 
                         val marketItems = listOf(
                             MarketItem(
