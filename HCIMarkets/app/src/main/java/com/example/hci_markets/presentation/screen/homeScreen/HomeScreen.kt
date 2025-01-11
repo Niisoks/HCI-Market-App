@@ -146,18 +146,7 @@ private fun Preview(){
             name = "Sheringham Market",
             busyness = 0.3f
         ),
-        MarketItem(
-            name = "Norwich Market",
-            busyness = 0.8f
-        ),
-        MarketItem(
-            name = "Worstead Estate Farmers Market",
-            busyness = 0.2f
-        ),
-        MarketItem(
-            name = "Sheringham Market",
-            busyness = 0.1f
-        )
+
     )
 
     HCIMarketsTheme {
