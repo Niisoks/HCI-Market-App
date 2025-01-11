@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -29,6 +30,8 @@ import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMark
 import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketsViewModel
 import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.tasks.TasksViewModel
+import com.example.hci_markets.presentation.ui.common.NavBar
+import com.example.hci_markets.presentation.ui.common.NavigationLocations
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 import com.example.hci_markets.util.PrefKeys
 import com.example.hci_markets.util.areLocationPermissionsGranted
@@ -234,7 +237,6 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(route = Screen.Home.route) {
-
                         val recentNews = listOf(
                             NewsItem(
                                 title = "New pop-up shop now open",
@@ -279,7 +281,19 @@ class MainActivity : ComponentActivity() {
                             )
                         )
 
-                        HomeScreen(newsItems = recentNews, marketItems = marketItems)
+                        NavBar(
+                            stringResource(R.string.home),
+                            currentLocation = NavigationLocations.HOME,
+                            showBack = false,
+                            onBackPress = {navController.popBackStack()},
+                            navHome = {navController.navigate(Screen.Home.route)},
+                            navMap = {navController.navigate(Screen.Home.route)},
+                            navMarkets = {navController.navigate(Screen.Home.route)},
+                            navNews = {navController.navigate(Screen.Home.route)},
+                            navSettings = {navController.navigate(Screen.Home.route)},
+                        ){
+                            HomeScreen(newsItems = recentNews, marketItems = marketItems)
+                        }
                     }
                 }
             }
