@@ -68,4 +68,7 @@
     <string name="directions">Directions</string>
     <string name="shops">Shops</string>
     <string name="shanghai">Taste of Shanghai</string>
+    <string name="norwich_market">Norwich Market Shops</string>
+    <string name="search_name_keyword">Search by name or keywords</string>
+    <string name="select_shop">Select a shop to view more information</string>
 </resources>

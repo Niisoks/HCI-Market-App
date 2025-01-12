@@ -7,5 +7,6 @@ enum class NavigationLocations(val nameRes: Int) {
     MAP(R.string.map),
     MARKETS(R.string.markets),
     NEWS(R.string.news),
-    SETTINGS(R.string.settings)
+    SETTINGS(R.string.settings),
+    NORWICH_MARKET(R.string.norwich_market)
 }

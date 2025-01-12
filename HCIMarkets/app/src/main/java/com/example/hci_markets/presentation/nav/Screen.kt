@@ -10,4 +10,6 @@ sealed class Screen(val route: String) {
     data object Settings : Screen(route = "settings")
     data object SelectMarket : Screen(route = "select-market")
     data object SelectHome : Screen(route = "select-home")
+
+    data object NorwichMarket : Screen(route = "norwich-market")
 }

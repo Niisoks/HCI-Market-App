@@ -1,5 +1,7 @@
 package com.example.hci_markets.presentation.screen.marketsScreen.shopItem
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -28,11 +31,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.example.hci_markets.R
-import com.example.hci_markets.domain.model.BusiestAt
 import com.example.hci_markets.domain.model.RestaurantMenu
 import com.example.hci_markets.presentation.screen.marketsScreen.PeakTimes
 import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
@@ -59,9 +63,12 @@ fun ShopItem(
     website: String = "testsite.com"
 ) {
     val expanded = remember { mutableStateOf(true) }
+    val menuVisible = remember { mutableStateOf(false) }
+    val contactVisible = remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Box() {
         Card(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(8.dp).fillMaxWidth(),
             elevation = CardDefaults.cardElevation(4.dp),
             shape = RoundedCornerShape(8.dp)
         ) {
@@ -97,7 +104,7 @@ fun ShopItem(
                     )
                     Row(Modifier.fillMaxWidth().padding(vertical = 12.dp), horizontalArrangement = Arrangement.Center) {
                         TwoLineIconColumn(R.drawable.baseline_access_time_24, openingTimes, openingDays)
-                        Spacer(Modifier.padding(horizontal = 48.dp))
+                        Spacer(Modifier.padding(horizontal = 64.dp))
                         TwoLineIconColumn(R.drawable.outline_my_location_24, "Stall $stall", "Row $row")
                     }
                     Row (Modifier.fillMaxWidth().padding(vertical = 12.dp), horizontalArrangement = Arrangement.Center) {
@@ -120,8 +127,45 @@ fun ShopItem(
                             contentDescription = null,
                         )
                     }
-                    Row(){
-
+                    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.padding(8.dp)){
+                        if(cash) IconLabelled(
+                            R.drawable.baseline_attach_money_24,
+                            "Accepts Cash",
+                            modifier = Modifier.weight(1f)
+                        )
+                        if(card)IconLabelled(
+                            R.drawable.baseline_credit_card_24,
+                            "Accepts   Card",
+                            modifier = Modifier.weight(1f)
+                        )
+                        if(vegan)IconLabelled(
+                            R.drawable.baseline_grass_24,
+                            "Vegan Options",
+                            modifier = Modifier.weight(1f)
+                        )
+                        if(vegetarian) IconLabelled(
+                            R.drawable.baseline_sunny_24,
+                            "Vegetarian Options",
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween){
+                        Button(onClick = {
+                            contactVisible.value = true
+                        }) {
+                            Text("Contact")
+                        }
+                        Button(onClick = {
+                            menuVisible.value = true
+                        }) {
+                            Text("Menu")
+                        }
+                        Button(onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(website))
+                            ContextCompat.startActivity(context, intent, null)
+                        }) {
+                            Text("Website")
+                        }
                     }
                 }
             }
@@ -136,10 +180,19 @@ fun ShopItem(
                 contentDescription = "Expand"
             )
         }
+        if(menuVisible.value){
+            MenuDialog(menu) { menuVisible.value = false }
+        }
+        if(contactVisible.value){
+            MenuDialog(remember{listOf(
+                RestaurantMenu("Phone", phone),
+                RestaurantMenu("Email", email)
+            )}) { contactVisible.value = false }
+        }
     }
 }
 
-@Preview
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun Preview(){
     HCIMarketsTheme {

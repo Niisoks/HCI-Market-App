@@ -30,7 +30,9 @@ import com.example.hci_markets.presentation.screen.tasks.TasksScreen
 import com.example.hci_markets.presentation.screen.TermsAndConditionsScreen
 import com.example.hci_markets.presentation.screen.homeScreen.HomeScreen
 import com.example.hci_markets.presentation.screen.mapScreen.MapScreen
+import com.example.hci_markets.presentation.screen.marketsScreen.MarketShopsScreen
 import com.example.hci_markets.presentation.screen.marketsScreen.MarketsScreen
+import com.example.hci_markets.presentation.screen.marketsScreen.ShopList
 import com.example.hci_markets.presentation.screen.newsScreen.NewsScreen
 import com.example.hci_markets.presentation.screen.selectHomeScreen.SelectHomeScreen
 import com.example.hci_markets.presentation.screen.selectMarketScreen.SelectMarketScreen
@@ -291,7 +293,14 @@ class MainActivity : ComponentActivity() {
                             MarketsScreen(
                                 mainViewModel.markets,
                                 { marketItem ->
-
+                                    if(marketItem.location != "Norwich"){
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "No data, going to Norwich for Demo",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                    navController.navigate(Screen.NorwichMarket.route)
                                 }
                             )
                         }
@@ -305,6 +314,17 @@ class MainActivity : ComponentActivity() {
                             showSettings = false
                         ){
                             SettingsScreen(navController)
+                        }
+                    }
+
+                    composable(route = Screen.NorwichMarket.route){
+                        MasterNavBar(
+                            currentLocation = NavigationLocations.NORWICH_MARKET,
+                            navController = navController,
+                            showBack = true,
+                            showSettings = true
+                        ){
+                            MarketShopsScreen()
                         }
                     }
                 }

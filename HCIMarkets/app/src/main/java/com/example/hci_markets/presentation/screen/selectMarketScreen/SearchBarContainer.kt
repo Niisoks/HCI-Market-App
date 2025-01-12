@@ -28,6 +28,7 @@ fun SearchBarContainer(
     currentText: String = "",
     onTextChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    hint: Int = R.string.enter_a_market_name,
     content: @Composable () -> Unit = {}
 ){
     Surface(modifier = modifier) {
@@ -38,7 +39,7 @@ fun SearchBarContainer(
                     onTextChange,
                     label = {
                         Text(
-                            stringResource(R.string.enter_a_market_name),
+                            stringResource(hint),
                             maxLines = 1,
                             modifier = Modifier.basicMarquee()
                         )

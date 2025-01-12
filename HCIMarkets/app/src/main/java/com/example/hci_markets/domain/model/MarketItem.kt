@@ -25,7 +25,8 @@ fun createMarketItems() : List<MarketItem>{
             openingTimes = "9am - 4pm",
             openingDays = "Mon - Sun",
             peak = PeakTimes.TWELVE,
-            latLng = LatLng(52.630886, 1.297355)
+            latLng = LatLng(52.630886, 1.297355),
+            shops = createMarkets()
         ),
         MarketItem(
             name = "Worstead Estate Farmers Market",
@@ -34,7 +35,8 @@ fun createMarketItems() : List<MarketItem>{
             openingTimes = "8am - 1pm",
             openingDays = "Sat - Sun",
             peak = PeakTimes.NINE,
-            latLng = LatLng(52.7630, 1.4553)
+            latLng = LatLng(52.7630, 1.4553),
+            shops = createMarkets()
         ),
         MarketItem(
             name = "Sheringham Market",
@@ -43,7 +45,8 @@ fun createMarketItems() : List<MarketItem>{
             openingTimes = "11am - 4pm",
             openingDays = "Wed - Sun",
             peak = PeakTimes.THREE,
-            latLng = LatLng(52.9412, 1.2093)
+            latLng = LatLng(52.9412, 1.2093),
+            shops = createMarkets()
         )
     )
 }
