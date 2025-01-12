@@ -257,7 +257,7 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             showBack = false
                         ){
-                            HomeScreen(newsItems = recentNews, marketItems = marketItems)
+                            HomeScreen(newsItems = recentNews, marketItems = marketItems, navToMarkets = {navController.navigate(Screen.Markets.route)})
                         }
                     }
 

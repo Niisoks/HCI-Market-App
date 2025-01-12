@@ -36,6 +36,7 @@ import com.example.hci_markets.presentation.ui.theme.HCIMarketsTheme
 fun HomeScreen(
     newsItems: List<NewsItem>,
     marketItems: List<MarketItem>,
+    navToMarkets: () -> Unit = {},
     modifier: Modifier = Modifier
 ){
     Surface {
@@ -107,7 +108,7 @@ fun HomeScreen(
                 BusyCard(
                     title = marketItems[i].name,
                     busyness = marketItems[i].busyness,
-                    onClick = { },
+                    onClick = navToMarkets,
                 )
             }
         }
